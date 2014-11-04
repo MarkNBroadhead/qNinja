@@ -14,3 +14,8 @@ results
 node_modules
 
 npm-debug.log
+public/dist/qNinja.css
+public/dist/qNinja.js
+public/dist/qNinja.min.css
+public/dist/qNinja.min.js
+public/index.html
