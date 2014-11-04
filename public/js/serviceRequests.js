@@ -1,7 +1,7 @@
 var myApp = angular.module('myApp', ['ngGrid', 'LocalStorageModule', 'ui.bootstrap']);
 
   myApp.controller('SRCtrl', ['$scope', '$http', 'localStorageService', '$modal', function($scope, $http, localStorageService, $modal) {
-    'use strict';
+
 
     $scope.selectedRows = [];
     $scope.formData = {

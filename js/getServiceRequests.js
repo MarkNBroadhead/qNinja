@@ -5,7 +5,7 @@ var request = require('request'),
 		async = require('async');
 
 module.exports=function(req, res) {
-	'use strict';
+
 	var engineer = req.body.engineer;
 	serverError = {'err': null, 'message': undefined };
 	var options = {
