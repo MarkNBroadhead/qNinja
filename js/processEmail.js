@@ -6,7 +6,7 @@ var getRecipients = require('./getRecipients'),
 // process an email item
 // roll task/item into a config object
 module.exports = function processEmail(mail, done) {
-
+  'use strict';
     // console.log('\nProcessing: ', mail, '\n');
     
     // get validated list of recipients

@@ -3,6 +3,7 @@ var logme = require('logme'),
     path = require('path');
 
 var Report = module.exports = function(engineer, transport) {
+    'use strict';
     this.engineer = engineer;
     this.transport = transport;
     this.responses = [];
@@ -15,6 +16,7 @@ var Report = module.exports = function(engineer, transport) {
 Report.prototype = {
 
     send: function(done) {
+        'use strict';
         var self = this,
             content = swig.renderFile(__dirname + "/../views/report.html", {
                 messages: self.responses,
@@ -33,7 +35,7 @@ Report.prototype = {
             self.transport.close();
             
             // exit early if there's an error
-            if(error) { 
+            if(error) {
                 logme.error(error);
                 return done(error, null);
             }
@@ -68,4 +70,4 @@ Report.prototype = {
         
 
     }
-}
+};

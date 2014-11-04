@@ -1,6 +1,7 @@
 var logme = require('logme');
 
 module.exports = function sendMail(mail, callback) {
+    'use strict';
 
     var eventHeader = '[' + mail.engineer + '] [mail] ';
 
@@ -31,4 +32,4 @@ module.exports = function sendMail(mail, callback) {
 
     });
 
-}
+};

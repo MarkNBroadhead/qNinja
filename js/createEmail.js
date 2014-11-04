@@ -1,6 +1,7 @@
 var myUtil = require('./myUtil');
 
 module.exports = function createEmail(mail, recipients) {
+    'use strict';
 
     // Prep mailOptions
     var from = "support@novell.com";
@@ -19,4 +20,4 @@ module.exports = function createEmail(mail, recipients) {
 
     // console.log('\nmailOptions: ', mailOptions);
     return mailOptions;
-}
+};

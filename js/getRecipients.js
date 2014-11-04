@@ -3,6 +3,7 @@ var setops = require('setops'),
     validate = require('./validate');
 
 module.exports = function getRecipients(array) {
+    'use strict';
     var recipients = [];
     // console.log('Parsing through: ', array);
     array.forEach(function(item, index, array) {
@@ -16,4 +17,4 @@ module.exports = function getRecipients(array) {
     
     // validate emails and return them here
     return validate(recipients);
-}
+};

@@ -8,13 +8,15 @@ var async = require('async'),
 
 // create a global queue that your whole server shares
 var queue = async.queue(function(taskHandler, done) {
+    'use strict';
     // you would just call some function on the taskHandler here that you pushed in
     taskHandler.process(done);
-}, 1);
+},1);
 
 
 // http request handler
 module.exports = function(req, res, next) {
+    'use strict';
 
     var task = req.body;
 
@@ -37,7 +39,7 @@ module.exports = function(req, res, next) {
             });
 
             async.eachLimit(
-                task.emails, 3, 
+                task.emails, 3,
                 processEmail,
                 function() {
                     // Close the smtp connection pool
@@ -56,4 +58,3 @@ module.exports = function(req, res, next) {
     // api.serverError(req, res, 'Uh oh!');
     api.ok(req, res, 'Task has been queued!');
 };
-

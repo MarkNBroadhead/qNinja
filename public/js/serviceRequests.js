@@ -1,9 +1,9 @@
-
 var myApp = angular.module('myApp', ['ngGrid', 'LocalStorageModule', 'ui.bootstrap']);
 
-  myApp.controller('SRCtrl', ['$scope', '$http', 'localStorageService', '$modal', function($scope,$http,localStorageService,$modal) {
-    
-    $scope.selectedRows=[];
+  myApp.controller('SRCtrl', ['$scope', '$http', 'localStorageService', '$modal', function($scope, $http, localStorageService, $modal) {
+    'use strict';
+
+    $scope.selectedRows = [];
     $scope.formData = {
       "engineer": undefined,
       "password": undefined,
@@ -17,9 +17,9 @@ var myApp = angular.module('myApp', ['ngGrid', 'LocalStorageModule', 'ui.bootstr
     $scope.init = function(){
       // Local Storage: rememberMe (Retrieve from store)
       if(localStorageService.isSupported){
-        $scope.formData.engineer = localStorageService.get("engineer"),
-        $scope.formData.password = localStorageService.get("password"),
-        $scope.formData.fromUser = localStorageService.get("fromUser"),
+        $scope.formData.engineer = localStorageService.get("engineer");
+        $scope.formData.password = localStorageService.get("password");
+        $scope.formData.fromUser = localStorageService.get("fromUser");
         $scope.formData.signature = localStorageService.get("signature");
 
         if($scope.formData.engineer || $scope.formData.password || $scope.formData.fromUser || $scope.formData.signature) {
@@ -27,7 +27,9 @@ var myApp = angular.module('myApp', ['ngGrid', 'LocalStorageModule', 'ui.bootstr
         }
 
         // if ($scope.formData.engineer !== undefined) $scope.getServiceRequests();
-        if ($scope.formData.signature !== undefined) $scope.editorSignature.setHTML($scope.formData.signature);
+        if ($scope.formData.signature !== undefined) {
+          $scope.editorSignature.setHTML($scope.formData.signature);
+        }
         $scope.srContent = document.getElementById('spinner');
 
       }
@@ -181,12 +183,13 @@ var myApp = angular.module('myApp', ['ngGrid', 'LocalStorageModule', 'ui.bootstr
     $scope.handleTemplate = function(template) {
 
       // If template requires variables from selectedRow, and 1 row isn't selected
-      if(!template.selectMultiple && $scope.selectedRows.length != 1) 
+      if(!template.selectMultiple && $scope.selectedRows.length != 1) {
         toastr.error('Please only select one SR when using this template');
+      }
       // Render variable-dependant snippets (depends on 1-row selected)
-      else if(!template.selectMultiple)
+      else if(!template.selectMultiple) {
         $scope.compileSnippet(template, $scope.selectedRows[0]);
-
+      }
       // Finally, insert the snippet
       $scope.editorContent.focus();
       $scope.editorContent.insertText($scope.editorContent.getSelection().start, template.snippet + '\n');
@@ -237,7 +240,7 @@ var myApp = angular.module('myApp', ['ngGrid', 'LocalStorageModule', 'ui.bootstr
           return;
       }
 
-      var classString = element.className, 
+      var classString = element.className,
           nameIndex = classString.indexOf(className);
 
       if (nameIndex == -1) {
@@ -318,7 +321,7 @@ var myApp = angular.module('myApp', ['ngGrid', 'LocalStorageModule', 'ui.bootstr
 
     $scope.getServiceRequests = function() {
 
-      $scope.spinIt('spinMe'); 
+      $scope.spinIt('spinMe');
 
       $scope.rememberMe();
       $http({
@@ -329,9 +332,9 @@ var myApp = angular.module('myApp', ['ngGrid', 'LocalStorageModule', 'ui.bootstr
         timeout: 2000
       }).success(function (data, status, headers, config) {
           var body = data;
-          body.forEach(function(item){ 
-            item.CREATEDON = new Date(Date.parse(item.CREATEDON)); 
-            item.LASTACTIVITYDATE = new Date(Date.parse(item.LASTACTIVITYDATE)); 
+          body.forEach(function(item){
+            item.CREATEDON = new Date(Date.parse(item.CREATEDON));
+            item.LASTACTIVITYDATE = new Date(Date.parse(item.LASTACTIVITYDATE));
           });
           $scope.myData = body;
           toastr.success('Received Service Requests.');
@@ -348,9 +351,9 @@ var myApp = angular.module('myApp', ['ngGrid', 'LocalStorageModule', 'ui.bootstr
     $scope.sendMail = function(){
 
       if ($scope.selectedRows.length === 0) {
-        toastr.error('No Service Request selected!')
+        toastr.error('No Service Request selected!');
       } else {
-        $scope.spinIt('spinMe'); 
+        $scope.spinIt('spinMe');
         $scope.rememberMe();
         $scope.formData.content = $scope.editorContent.getHTML();
         $scope.formData.signature = $scope.editorSignature.getHTML();
@@ -368,8 +371,8 @@ var myApp = angular.module('myApp', ['ngGrid', 'LocalStorageModule', 'ui.bootstr
             $scope.gridOptions.$gridScope.toggleSelectAll(false);
           }).error(function (data, status, headers, config) {
               toastr.error(headers);
-              console.error(data); 
-              $scope.toggleClass($scope.blurMe, 'blur'); $scope.spinner.stop();  
+              console.error(data);
+              $scope.toggleClass($scope.blurMe, 'blur'); $scope.spinner.stop();
           });
       }
         
