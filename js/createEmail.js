@@ -10,7 +10,7 @@ module.exports = function createEmail(mail, recipients) {
         from = mail.ENGINEER.toLowerCase() + "@novell.com";
     }
 
-    mailOptions = {
+    var mailOptions = {
         from: from,
         to: recipients.join(','),
         cc: mail.ccSupport,
